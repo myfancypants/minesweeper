@@ -1,6 +1,7 @@
 # Minesweeper Solver
 
 Welcome to Minesweeper Solver v1.awesome
+
     created by Shanan Sussman
 
 ## Setup
@@ -25,35 +26,39 @@ Feel free to inspect minesweeper.js to learn about any game logic, however, you 
 
 There are no space or time restrictions
 
-Global Variables
+
+### Global Variables
+
   boardSize - (int) sets the width and height of the gameboard to play on
+
   numMines - (int) generates a number of randomly placed mines on the game board
 
-API Functions
-  resetGame() - will reset the gameBoard based off of boardSize and numMines. All previous game data will be
+### API Functions
+
+resetGame() - will reset the gameBoard based off of boardSize and numMines. All previous game data will be
                 regenerated and a new board will be created
 
-  simulateSquareClick(row, col, altKey) - this will simulate a user click event on a target square of the game
-            row - (int) the row of the target square you wish to click
-            col - (int) the column of the target square you wish to click
-            altKey - (boolean) defines the type of click event you are simulating
-                     true - reveals the value behind the target square
-                     false - places a flag or removes a flag ontop of the target square
-            return - the result of this action will return the possible values:
-                      0-8 -  (number of nearby mines)
-                      M  - (you found a mine! oh no, game over, womp womp)
-                      * -  (this is a userplaced flag)
-                      null - (you have removed a user placed flag)
+simulateSquareClick(row, col, altKey) - this will simulate a user click event on a target square of the game
+* row - (int) the row of the target square you wish to click
+* col - (int) the column of the target square you wish to click
+* altKey - (boolean) defines the type of click event you are simulating
+    * true - reveals the value behind the target square
+    * false - places a flag or removes a flag ontop of the target square
+* return - the result of this action will return the possible values:
+    * 0-8 -  (number of nearby mines)
+    * M  - (you found a mine! oh no, game over, womp womp)
+    * `*` -  (this is a userplaced flag)
+    * null - (you have removed a user placed flag)
 
-  simulateWinCheck() - this will simulate clicking the check for win button to see if you have a correct solution
-            return - (boolean) this will return true or false if you have won the game or not
+simulateWinCheck() - this will simulate clicking the check for win button to see if you have a correct solution
+* return - (boolean) this will return true or false if you have won the game or not
 
 
 solver - a naive solution has been provided to provide an example implementation of the function API. Please
          feel free to remove all the code and write your own solution!
 
 
-
+### Misc Notes
 Every execution of resetGame() will print a console message with a formatted table of the solution for your
 reference
 
