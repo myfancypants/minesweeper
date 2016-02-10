@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+  <body>
+    <div id="game-board">
+        <div class="square">
+          <div class="mine">*
+          </div>
+        </div>
+    </div>
+    <div id="nav">
+        <input id="reset" type="button" value="reset"/>
+        <input id="check-win" type="button" value="check for win"/>
+        Mines Left: <span id="mine-count"></span>
+    </div>
+    <div id="mines">
+
+    </div>
+    <script src="minesweeper.js"></script>
+    <script src="solver.js"></script>
+  </body>
+</html>

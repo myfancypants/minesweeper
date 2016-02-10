@@ -1,0 +1,20 @@
+div {
+  margin: 0;
+  padding: 0;
+}
+.square {
+  margin: 0px 3px;
+  background-color: green;
+  width: 50px;
+  height: 50px;
+  border: 2px solid black;
+  display: none;
+  position: relative;
+}
+.mine {
+  left:0px;
+  right:0px;
+  margin:15% 30%;
+  font-size:40px;
+  position:absolute;
+}
