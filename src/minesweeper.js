@@ -5,7 +5,7 @@ var mineCount;
 var mineCountDom = document.getElementById('mine-count');
 
 
-var calculateBoard = function(boardSize, numMines) {
+var calculateBoard = function (boardSize, numMines) {
   var mines = Object.keys(generateMines(numMines, boardSize));
   var board = initializeBoardArray(boardSize);
 
@@ -16,7 +16,7 @@ var calculateBoard = function(boardSize, numMines) {
   for (m = 0; m < board.length; m++) {
     for (p = 0; p < board[m].length; p++) {
       if (board[m][p] !== 'M') {
-        board[m][p] = countMines(m, p, board.length, board)
+        board[m][p] = countMines(m, p, board.length, board);
       }
     }
   }
@@ -24,7 +24,7 @@ var calculateBoard = function(boardSize, numMines) {
   return board
 };
 
-var generateMines = function(numMines, boardSize) {
+var generateMines = function (numMines, boardSize) {
   var mineLocations = {};
   var random;
   var totalSquares = boardSize * boardSize;
@@ -46,21 +46,21 @@ var generateMines = function(numMines, boardSize) {
   return mineLocations;
 }
 
-var initializeBoardArray = function(boardSize) {
-  return Array.apply(null, Array(boardSize)).map(function(row) {
-    return Array.apply(null, Array(boardSize)).map(function(item) {
-      return item = 0
+var initializeBoardArray = function (boardSize) {
+  return Array.apply(null, Array(boardSize)).map(function (row) {
+    return Array.apply(null, Array(boardSize)).map(function (item) {
+      return item = 0;
     })
   });
 }
 
-var generateRandomLocation = function(boardSize) {
+var generateRandomLocation = function (boardSize) {
   var x = Math.floor(Math.random() * boardSize);
   var y = Math.floor(Math.random() * boardSize);
   return "" + x + y;
 }
 
-var countMines = function(posX, posY, size, board) {
+var countMines = function (posX, posY, size, board) {
   var count = 0;
   var xOffset = -1;
   var yOffset = -1;
@@ -89,7 +89,7 @@ var countMines = function(posX, posY, size, board) {
   return count;
 }
 
-var isValid = function(posX, posY, size) {
+var isValid = function (posX, posY, size) {
   return posX < size && posX >= 0 && posY < size && posY >= 0;
 }
 
@@ -98,9 +98,9 @@ var mineEl = el.children[0];
 var mineFlag = mineEl.innerHTML;
 var dom;
 
-var attachClickEvent = function(el){
-  var clickEvent = function(event){
-    if (!event.altKey){
+var attachClickEvent = function (el) {
+  var clickEvent = function (event) {
+    if (!event.altKey) {
       if(el.style.backgroundColor !== 'grey') {
         if (el.children.length > 0) {
           el.removeChild(el.children[0]);
@@ -126,12 +126,12 @@ var attachClickEvent = function(el){
       else {
         id = target.id.split(',');
       }
-      
+
       nearbyMines = checkBoard(id[0], id[1]);
       tempMine = mineEl.cloneNode(true);
       tempMine.innerHTML = nearbyMines;
       el.appendChild(tempMine);
-      
+
       if (nearbyMines !== 'M') {
         el.style.backgroundColor = 'grey';
       }
@@ -146,15 +146,15 @@ var attachClickEvent = function(el){
   el.addEventListener('click', clickEvent);
 };
 
-var drawBoard = function(boardSize) {
+var drawBoard = function (boardSize) {
   for (var i = 0; i < boardSize; i++) {
     var row = document.createElement('div');
     row.className = 'row';
     document.getElementById('game-board').appendChild(row);
-    
+
     for (var k = 0; k < boardSize; k++) {
       var newSquare = el.cloneNode(true);
-      
+
       newSquare.style.display = "inline-block";
       newSquare.removeChild(newSquare.children[0]);
       newSquare.id = '' + i + ',' + k;
@@ -165,15 +165,15 @@ var drawBoard = function(boardSize) {
   dom = document.getElementById('game-board');
 };
 
-var clearBoard = function() {
+var clearBoard = function () {
   var domBoard = document.getElementById('game-board');
   var children = Array.prototype.slice.call(domBoard.children);
 
-  children.forEach(function(child) {
+  children.forEach(function (child) {
     domBoard.removeChild(child);
   });
 }
-var resetGame = function() {
+var resetGame = function () {
   mineCount = numMines;
   mineCountDom.innerHTML = mineCount;
   gameboard = calculateBoard(boardSize, numMines);
@@ -182,47 +182,47 @@ var resetGame = function() {
   console.table(gameboard);
   drawBoard(boardSize);
 }
-var checkBoard = function(row, col) {
+var checkBoard = function (row, col) {
   return gameboard[row][col];
 }
 
-var simulateSquareClick = function(row, col, altKey) {
+var simulateSquareClick = function (row, col, altKey) {
   var click = new MouseEvent('click', {altKey: altKey});
   var targetSquare = document.getElementById('' + row + ',' + col);
 
-  // (function(targetSquare, click){setTimeout(function(){targetSquare.dispatchEvent(click);}, 1000)})(targetSquare, click);
+  // (function (targetSquare, click) {setTimeout(function () {targetSquare.dispatchEvent(click);}, 1000)})(targetSquare, click);
   targetSquare.dispatchEvent(click)
   return targetSquare.children[0] ? targetSquare.children[0].innerHTML : null;
 };
 
-var simulateWinCheck = function() {
+var simulateWinCheck = function () {
   var click = new MouseEvent('click');
   var checkForWinButton = document.getElementById('check-win');
 
   checkForWinButton.dispatchEvent(click);
 }
 
-var checkFalseFlag = function(foundMine, squareFlag) {
+var checkFalseFlag = function (foundMine, squareFlag) {
   return foundMine && squareFlag && squareFlag === mineFlag;
 }
 
-var checkMine = function(row, col) {
+var checkMine = function (row, col) {
   return gameboard[row][col] === 'M';
 }
 
-var checkForWin = function() {
+var checkForWin = function () {
   var result = true;
   var id;
   var squares;
   var rows;
-  
+
   rows = Array.prototype.slice.call(dom.children);
-  rows.forEach(function(row) {
+  rows.forEach(function (row) {
     squares = Array.prototype.slice.call(row.children);
-    squares.forEach(function(square){
+    squares.forEach(function (square) {
       var foundMine;
       var squareFlag;
-      
+
       id = square.id.split(',');
       foundMine = checkMine(id[0], id[1]);
       if (square.children.length > 0) {
@@ -251,14 +251,14 @@ var checkForWin = function() {
   return result;
 };
 
-var attachEventListeners = function(){
-document.getElementById('reset').addEventListener('click', resetGame);
-document.getElementById('check-win').addEventListener('click', checkForWin);
+var attachEventListeners = function () {
+  document.getElementById('reset').addEventListener('click', resetGame);
+  document.getElementById('check-win').addEventListener('click', checkForWin);
 };
 
-var init = function(){
-attachEventListeners();
-resetGame();
+var init = function () {
+  attachEventListeners();
+  resetGame();
 }
 
 init();
