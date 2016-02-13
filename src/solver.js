@@ -30,7 +30,8 @@ API Functions
   resetGame() - will reset the gameBoard based off of boardSize and numMines. All previous game data will be
                 regenerated and a new board will be created
 
-  simulateSquareClick(row, col, altKey) - this will simulate a user click event on a target square of the game
+  simulateSquareClick(row, col, altKey) - this will simulate a user click event on a target square of the game,
+        if the value is 0, it will automatically reveal as many adjacent 0s as it can
             row - (int) the row of the target square you wish to click
             col - (int) the column of the target square you wish to click
             altKey - (boolean) defines the type of click event you are simulating
@@ -45,6 +46,14 @@ API Functions
   simulateWinCheck() - this will simulate clicking the check for win button to see if you have a correct solution
             return - (boolean) this will return true or false if you have won the game or not
 
+  returnSquareValue(row, col) - this will return the value of a target square
+            row - (int) the row of the target square you wish to check
+            col - (int) the column of the target square you wish to check
+
+  isValid(row, col, boardSize) - given the boardSize and location, this function will let you know if you are
+        checking a valid position or not
+            return - (boolean)
+
 
 solver - a naive solution has been provided to provide an example implementation of the function API. Please
          feel free to remove all the code and write your own solution!
@@ -58,10 +67,9 @@ Execute solver by running solver() in the console of index.html or if enabled on
 index.html
 */
 
-
 // global game settings
-boardSize = 12;
-numMines = 30;
+boardSize = 5;
+numMines = 1;
 
 
 // this is a naive solution, please replace and try it yourself!
@@ -81,6 +89,7 @@ var solver = function(){
   }
   simulateWinCheck();
 }
+
 
 
 // Uncomment to have solver automatically run every refresh of index.html

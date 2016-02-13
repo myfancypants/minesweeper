@@ -1,5 +1,5 @@
 var boardSize = 5;
-var numMines = 5;
+var numMines = 1;
 var gameboard;
 var mineCount;
 var mineCountDom = document.getElementById('mine-count');
@@ -131,9 +131,16 @@ var attachClickEvent = function(el){
       tempMine = mineEl.cloneNode(true);
       tempMine.innerHTML = nearbyMines;
       el.appendChild(tempMine);
+
       
       if (nearbyMines !== 'M') {
         el.style.backgroundColor = 'grey';
+        el.removeEventListener('click', clickEvent);
+        console.log(nearbyMines);
+        if (nearbyMines === 0) {
+          console.log('inside the thing', id[0], id[1]);
+          revealZeroes(parseInt(id[0]), parseInt(id[1]));
+        }
       }
       else {
         el.style.backgroundColor = 'red';
@@ -187,12 +194,32 @@ var checkBoard = function(row, col) {
 }
 
 var simulateSquareClick = function(row, col, altKey) {
+  var result;
+  var squareValue;
   var click = new MouseEvent('click', {altKey: altKey});
   var targetSquare = document.getElementById('' + row + ',' + col);
+  var testValue = parseSquareValue(targetSquare)
 
-  // (function(targetSquare, click){setTimeout(function(){targetSquare.dispatchEvent(click);}, 1000)})(targetSquare, click);
-  targetSquare.dispatchEvent(click)
-  return targetSquare.children[0] ? targetSquare.children[0].innerHTML : null;
+  targetSquare.dispatchEvent(click);
+  return parseSquareValue(targetSquare);
+};
+
+var parseSquareValue = function(element) {
+  var squareValue = element.children[0];
+  var result;
+
+  if (squareValue) {
+    if (squareValue.innerHTML === 'M' || squareValue.innerHTML === '*') {
+      result = squareValue.innerHTML;
+    }
+    else {
+      result = parseInt(squareValue.innerHTML);
+    }
+  }
+  else {
+    result = null;
+  }
+  return result;
 };
 
 var simulateWinCheck = function() {
@@ -200,6 +227,12 @@ var simulateWinCheck = function() {
   var checkForWinButton = document.getElementById('check-win');
 
   checkForWinButton.dispatchEvent(click);
+}
+
+var returnSquareValue = function(row, col) {
+  var targetSquare = document.getElementById('' + row + ',' + col);
+
+  return parseSquareValue(targetSquare);
 }
 
 var checkFalseFlag = function(foundMine, squareFlag) {
@@ -249,6 +282,27 @@ var checkForWin = function() {
   if (result) alert('You Win!');
   else alert('Not this time');
   return result;
+};
+
+var checkRemainingMines = function(){
+  return mineCount;
+};
+
+var checkRevealedSquare = function(row, col) {
+  var value = returnSquareValue(row, col)
+  return (value === null || typeof(value) !== 'number');
+}
+  
+var revealZeroes = function(row, col) {
+  for (var i = -1; i < 2; i++) {
+    for (var k = -1; k < 2; k++) {
+      if (isValid(row + i, col + k, boardSize)) {
+        if (checkRevealedSquare(row + i, col + k)) {
+          simulateSquareClick(row + i, col + k, true);
+        }
+      }
+    }
+  }
 };
 
 var attachEventListeners = function(){

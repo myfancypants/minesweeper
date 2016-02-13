@@ -53,6 +53,14 @@ simulateSquareClick(row, col, altKey) - this will simulate a user click event on
 simulateWinCheck() - this will simulate clicking the check for win button to see if you have a correct solution
 * return - (boolean) this will return true or false if you have won the game or not
 
+returnSquareValue(row, col) - this will return the value of a target square
+* row - (int) the row of the target square you wish to check
+* col - (int) the column of the target square you wish to check
+
+isValid(row, col, boardSize) - given the boardSize and location, this function will let you know if you are
+* checking a valid position or not
+    * return - (boolean)
+
 
 solver - a naive solution has been provided to provide an example implementation of the function API. Please
          feel free to remove all the code and write your own solution!
