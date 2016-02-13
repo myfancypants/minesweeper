@@ -57,9 +57,8 @@ returnSquareValue(row, col) - this will return the value of a target square
 * row - (int) the row of the target square you wish to check
 * col - (int) the column of the target square you wish to check
 
-isValid(row, col, boardSize) - given the boardSize and location, this function will let you know if you are
-* checking a valid position or not
-    * return - (boolean)
+isValid(row, col, boardSize) - given the boardSize and location, this function will let you know if you are checking a valid position or not
+* return - (boolean)
 
 
 solver - a naive solution has been provided to provide an example implementation of the function API. Please
