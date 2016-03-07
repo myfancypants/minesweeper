@@ -46,7 +46,7 @@ API Functions
   simulateWinCheck() - this will simulate clicking the check for win button to see if you have a correct solution
             return - (boolean) this will return true or false if you have won the game or not
 
-  returnSquareValue(row, col) - this will return the value of a target square
+  checkSquareValue(row, col) - this will return the value of a target square
             row - (int) the row of the target square you wish to check
             col - (int) the column of the target square you wish to check
 
