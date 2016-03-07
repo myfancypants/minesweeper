@@ -69,7 +69,7 @@ var countMines = function(posX, posY, size, board) {
   var yOffset = -1;
 
   for (var i = 0; i < 9; i++) {
-    if (isValid(posX - xOffset, posY - yOffset, size)) {
+    if (isValid(posX - xOffset, posY - yOffset)) {
       if (board[posX - xOffset][posY - yOffset] === 'M') {
         count++;
       }
@@ -92,8 +92,8 @@ var countMines = function(posX, posY, size, board) {
   return count;
 }
 
-var isValid = function(posX, posY, size) {
-  return posX < size && posX >= 0 && posY < size && posY >= 0;
+var isValid = function(posX, posY) {
+  return posX < boardSize && posX >= 0 && posY < boardSize && posY >= 0;
 }
 
 var attachClickEvent = function(el){
@@ -228,7 +228,7 @@ var simulateWinCheck = function() {
 }
 
 var checkSquareValue = function(row, col) {
-  if (!isValid(row, col, boardSize)) {
+  if (!isValid(row, col)) {
     return false;
   }
   var targetSquare = document.getElementById('' + row + ',' + col);
@@ -296,7 +296,7 @@ var checkRevealedSquare = function(row, col) {
 var revealZeroes = function(row, col) {
   for (var i = -1; i < 2; i++) {
     for (var k = -1; k < 2; k++) {
-      if (isValid(row + i, col + k, boardSize)) {
+      if (isValid(row + i, col + k)) {
         if (checkRevealedSquare(row + i, col + k)) {
           simulateSquareClick(row + i, col + k, true);
         }

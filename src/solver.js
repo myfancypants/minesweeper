@@ -50,8 +50,7 @@ API Functions
             row - (int) the row of the target square you wish to check
             col - (int) the column of the target square you wish to check
 
-  isValid(row, col, boardSize) - given the boardSize and location, this function will let you know if you are
-        checking a valid position or not
+  isValid(row, col) - given  location, this function will let you know if you are checking a valid position or not
             return - (boolean)
 
   checkRemainingMines() - returns number of mines left to find on the game board
