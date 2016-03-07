@@ -207,6 +207,9 @@ var parseSquareValue = function(element) {
     if (squareValue.innerHTML === 'M' || squareValue.innerHTML === '*') {
       result = squareValue.innerHTML;
     }
+    else if (squareValue.innerHTML === '') {
+      result = 0;
+    }
     else {
       result = parseInt(squareValue.innerHTML);
     }
@@ -224,7 +227,10 @@ var simulateWinCheck = function() {
   checkForWinButton.dispatchEvent(click);
 }
 
-var returnSquareValue = function(row, col) {
+var checkSquareValue = function(row, col) {
+  if (!isValid(row, col, boardSize)) {
+    return false;
+  }
   var targetSquare = document.getElementById('' + row + ',' + col);
 
   return parseSquareValue(targetSquare);
@@ -283,7 +289,7 @@ var checkRemainingMines = function(){
 };
 
 var checkRevealedSquare = function(row, col) {
-  var value = returnSquareValue(row, col)
+  var value = checkSquareValue(row, col)
   return (value === null || typeof(value) !== 'number');
 }
   
