@@ -76,22 +76,107 @@ numMines = 1;
 
 // this is a naive solution, please replace and try it yourself!
 var solver = function(){
-  // resetGame();
+  resetGame();
   var row = 0;
   var col = 0;
-  var play = true;
 
-  while(play !== 'M') {
-    play = simulateSquareClick(row, col, true);
-    col++;
-    if (col === boardSize) {
-      col = 0;
-      row++;
-    }
+  var firstClick = simulateSquareClick(row, col, true);
+  
+  // edge case for if we lose on our first guess
+  if (firstClick === 'M') {
+    resetGame();
   }
+
+  else if (firstClick === 1) {
+    col = 3;
+    simulateSquareClick(row, col, true);
+  }
+
+  for (row; row < boardSize; row++) {
+    col = 0;
+    for (col; col < boardSize; col++) {
+      var currentValue = checkSquareValue(row, col);
+      if (typeof currentValue === 'number' && currentValue > 0) {
+        var nearbyMines = findNearbyMines(row, col);
+        if (nearbyMines.length === 1) {
+          if (checkSquareValue(nearbyMines[0][0], nearbyMines[0][1]) !== '*') {
+            simulateSquareClick(nearbyMines[0][0],nearbyMines[0][1], false);
+          }
+        }
+        else if (nearbyMines.length > 1) {
+          var spaceAroundMines = {count: 0, index:0}
+          for (var i = 0; i < nearbyMines.length; i++) {
+            var mineRow = nearbyMines[i][0];
+            var mineCol = nearbyMines[i][1];
+            var counter = 0;
+            checkProximity(mineRow, mineCol, function(row, col) {
+              var currentVal = checkSquareValue(row, col);
+              if (typeof currentVal === 'number' && currentVal > 0) {
+                counter++;
+              }
+            })
+            if (counter > spaceAroundMines.count) {
+              spaceAroundMines.count = counter;
+              spaceAroundMines.index = i;
+            }
+          }
+          var toFlag = nearbyMines[spaceAroundMines.index];
+          if (checkSquareValue(toFlag[0], toFlag[1]) !== '*') {
+            simulateSquareClick(toFlag[0], toFlag[1], false);
+          }
+        }
+      }
+    }
+
+  }
+
   simulateWinCheck();
 }
 
+var findNearbyMines = function(row, col) {
+  var possibleMines = [];
+  var rowOffset = -1;
+  var colOffset = -1;
+
+  var callback = function(row, col) {
+      var currentVal = checkSquareValue(row, col);
+      console.log(currentVal, row, col);
+      
+      if (currentVal === null || currentVal === '*') {
+        possibleMines.push([row, col])
+      }
+  }
+
+  checkProximity(row, col, callback)
+  return possibleMines;
+}
+
+var checkProximity = function(row, col, callback) {
+  var rowOffset = -1;
+  var colOffset = -1;
+
+  for (var i = 0; i < 9; i++) {
+    var currentRow = row + rowOffset;
+    var currentCol = col + colOffset;
+
+    if (isValid(currentRow, currentCol)) {
+      callback(currentRow, currentCol);
+
+      colOffset++;
+
+      if (colOffset === 2) {
+        colOffset = -1;
+        rowOffset++;
+      }
+    } else {
+      colOffset++;
+      if (colOffset === 2) {
+        colOffset = -1;
+        rowOffset++;
+      }
+    }
+  }
+}
 
 
 // Uncomment the line below to have the solver automatically run every refresh of index.html
