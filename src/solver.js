@@ -54,6 +54,9 @@ API Functions
         checking a valid position or not
             return - (boolean)
 
+  checkRemainingMines() - returns number of mines left to find on the game board
+            return - (int) number value of mines left
+
 
 solver - a naive solution has been provided to provide an example implementation of the function API. Please
          feel free to remove all the code and write your own solution!
@@ -74,7 +77,7 @@ numMines = 1;
 
 // this is a naive solution, please replace and try it yourself!
 var solver = function(){
-  resetGame();
+  // resetGame();
   var row = 0;
   var col = 0;
   var play = true;
@@ -92,6 +95,6 @@ var solver = function(){
 
 
 
-// Uncomment to have solver automatically run every refresh of index.html
+// Uncomment the line below to have the solver automatically run every refresh of index.html
 // otherwise manually execute solver() in console of index.html
 // solver();

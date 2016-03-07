@@ -60,6 +60,9 @@ returnSquareValue(row, col) - this will return the value of a target square
 isValid(row, col, boardSize) - given the boardSize and location, this function will let you know if you are checking a valid position or not
 * return - (boolean)
 
+checkRemainingMines() - returns number of mines left to find on the game board
+* return - (int) number value of mines left
+
 
 solver - a naive solution has been provided to provide an example implementation of the function API. Please
          feel free to remove all the code and write your own solution!

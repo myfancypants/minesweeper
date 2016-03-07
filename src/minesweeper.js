@@ -31,7 +31,6 @@ var generateMines = function(numMines, boardSize) {
 
   if (numMines > totalSquares) {
     numMines = totalSquares;
-    console.log(numMines, totalSquares);
   }
 
   for (var i = 0; i < numMines; i++) {
@@ -136,9 +135,7 @@ var attachClickEvent = function(el){
       if (nearbyMines !== 'M') {
         el.style.backgroundColor = 'grey';
         el.removeEventListener('click', clickEvent);
-        console.log(nearbyMines);
         if (nearbyMines === 0) {
-          console.log('inside the thing', id[0], id[1]);
           revealZeroes(parseInt(id[0]), parseInt(id[1]));
         }
       }
@@ -186,7 +183,6 @@ var resetGame = function() {
   gameboard = calculateBoard(boardSize, numMines);
 
   clearBoard();
-  console.table(gameboard);
   drawBoard(boardSize);
 }
 var checkBoard = function(row, col) {
@@ -278,7 +274,6 @@ var checkForWin = function() {
       }
     });
   });
-  console.log('checkForWin result:', result);
   if (result) alert('You Win!');
   else alert('Not this time');
   return result;
