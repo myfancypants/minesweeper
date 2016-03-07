@@ -3,6 +3,10 @@ var numMines = 1;
 var gameboard;
 var mineCount;
 var mineCountDom = document.getElementById('mine-count');
+var el = document.getElementsByClassName('square')[0];
+var mineEl = el.children[0];
+var mineFlag = mineEl.innerHTML;
+var dom;
 
 
 var calculateBoard = function(boardSize, numMines) {
@@ -92,11 +96,6 @@ var isValid = function(posX, posY, size) {
   return posX < size && posX >= 0 && posY < size && posY >= 0;
 }
 
-var el = document.getElementsByClassName('square')[0];
-var mineEl = el.children[0];
-var mineFlag = mineEl.innerHTML;
-var dom;
-
 var attachClickEvent = function(el){
   var clickEvent = function(event){
     if (!event.altKey){
@@ -128,7 +127,7 @@ var attachClickEvent = function(el){
       
       nearbyMines = checkBoard(id[0], id[1]);
       tempMine = mineEl.cloneNode(true);
-      tempMine.innerHTML = nearbyMines;
+      tempMine.innerHTML = nearbyMines === 0 ? '' : nearbyMines; 
       el.appendChild(tempMine);
 
       
