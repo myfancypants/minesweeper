@@ -104,7 +104,7 @@ var solver = function(){
           }
         }
         else if (nearbyMines.length > 1) {
-          var spaceAroundMines = {count: 0, index:0}
+          var spaceAroundMines = {count: 0, index:0};
           for (var i = 0; i < nearbyMines.length; i++) {
             var mineRow = nearbyMines[i][0];
             var mineCol = nearbyMines[i][1];
@@ -140,10 +140,9 @@ var findNearbyMines = function(row, col) {
 
   var callback = function(row, col) {
       var currentVal = checkSquareValue(row, col);
-      console.log(currentVal, row, col);
       
       if (currentVal === null || currentVal === '*') {
-        possibleMines.push([row, col])
+        possibleMines.push([row, col]);
       }
   }
 
